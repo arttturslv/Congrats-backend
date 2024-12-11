@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const globalErrorHandler = require('./controllers/ErrorController');
 const CustomError = require('./utils/CustomError');
+const { PORT } = require('./db/config')
 
 
 const app = express();
@@ -29,8 +30,8 @@ app.use(globalErrorHandler)
 
 conn()
     .then(() => {
-        app.listen(3000, () => {
-            console.log('Server is 🔥')
+        app.listen(PORT, () => {
+            console.log(`Server (${PORT}) is 🔥`)
         });    
     }).catch((err)=> {
         console.log("Erro na conexão com o mongo.");
