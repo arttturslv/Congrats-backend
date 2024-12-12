@@ -22,9 +22,9 @@ const fileSchema = new Schema({
         required: [true, 'description is required field!'],
         trim: true
     },
-    image: {
+    file: {
         type: String,
-        required: [true, 'image is required field!']
+        required: [true, 'file is required field!']
     }
 });
 
