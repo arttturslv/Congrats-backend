@@ -56,6 +56,9 @@ const cardSchema = new Schema({
         type: [fileSchema],
         required: [true, 'pictures (array) is required field!'],
     },
+    passKey: {
+        type: String,
+    }
 }, {timestamps:true})
 
 const Card = mongoose.model("Card", cardSchema);

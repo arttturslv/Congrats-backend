@@ -5,8 +5,9 @@ const cardController = require('../controllers/CardController');
 
 router.post('/create', cardController.create);
 
-router.get('/view/:id', cardController.getCard);
+router.get('/stats', cardController.getCardsCount);
 
-router.get('/stats/count', cardController.getCardsCount);
+router.get('/:id/:passKey?', cardController.getCard);
+
 
 module.exports = router;
