@@ -2,7 +2,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const PORT = 3000;
+const PORT = 3001;
 const mongoDBURL = process.env.URLMONGO;
 
 
