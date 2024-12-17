@@ -63,7 +63,8 @@ const cardController = {
                 receiverName: req.body.receiverName,
                 dateMet: req.body.dateMet,
                 pictures: picturesSliced,
-                passKey: passCreated
+                passKey: passCreated,
+                youtubeURL: req.body.youtubeURL,
             };
 
             const cardNotNull = removeNullAttributes(card)

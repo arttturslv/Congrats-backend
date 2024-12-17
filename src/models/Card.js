@@ -58,6 +58,9 @@ const cardSchema = new Schema({
     },
     passKey: {
         type: String,
+    },
+    youtubeURL: {
+        type: String,
     }
 }, {timestamps:true})
 
