@@ -12,11 +12,6 @@ app.use(express.json({limit: '5mb'}));
 
 const conn = require('./db/conn');
 
-app.get('/', (req, res) => {
-    res.send('Hello user')
-})
-
-
 const routes = require('./routes/router')
 
 app.use('/api', routes);
