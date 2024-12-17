@@ -37,3 +37,6 @@ conn()
         console.log("Erro na conexão com o mongo.");
         console.log(err);
     });
+
+
+module.exports = app;

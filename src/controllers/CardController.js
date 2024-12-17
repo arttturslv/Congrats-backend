@@ -51,7 +51,6 @@ const cardController = {
             
             console.log("req.body.passKey: ", req.body.passKey)
             if(req.body.passKey) {
-                
                 passCreated=GeneratePassKeys();
             }
 
@@ -88,24 +87,26 @@ const cardController = {
     },
 
     getCard:async(req, res, next) => {
-        console.log("Entrou no getCard")
         try {
             const id = req.params.id;
             const ReqPassKey = req.params.passKey;
+
             const response = await cardModel.find({easyId: id});
 
-            let passKey = response[0].passKey;
-            console.log("passKey: ", passKey);
-            console.log("ReqPassKey: ", ReqPassKey);
+            if(response.length === 0) {
+                const err =  new CustomError(`Card was not found: ${id}`, 404)
+                return next(err);
+            } 
 
+            let passKeys = response[0].passKey;
 
-            if(passKey) {
-                if(passKey !== ReqPassKey) {
+            if(passKeys) {
+                if(passKeys !== ReqPassKey) {
                     console.log("passKey incorreta");
-                    res.status(201).json({
+                    return res.status(202).json({
                         status: 'pending',
                         data: {
-                            about: "PassKey is incorrect."
+                            about: "PassKey is incorrect. The request has been accepted but not processed completely."
                         }
                     })
                 }
@@ -118,10 +119,8 @@ const cardController = {
                         response
                     }
                 })
-            } else {
-                const err =  new CustomError(`Card was not found: ${id}`, 404)
-                next(err);
             } 
+
         } catch (error) {
             const err =  new CustomError(error.message, 400)
             next(err);
