@@ -13,7 +13,7 @@ const fileSchema = new Schema({
         required: false,
         trim: true
     },
-    pictureDate: {
+    date: {
         type: String,
         required: false
     },

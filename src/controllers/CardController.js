@@ -55,7 +55,7 @@ const cardController = {
             }
 
             const picturesSliced = req.body.pictures.slice(0,3);
-            
+
             const card = {
                 easyId,
                 title: req.body.title,
