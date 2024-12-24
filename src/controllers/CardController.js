@@ -65,6 +65,8 @@ const cardController = {
                 pictures: picturesSliced,
                 passKey: passCreated,
                 youtubeURL: req.body.youtubeURL,
+                views: 0,
+                shareCount:0
             };
 
             const cardNotNull = removeNullAttributes(card)
@@ -90,16 +92,20 @@ const cardController = {
     getCard:async(req, res, next) => {
         try {
             const id = req.params.id;
+
+            console.log(id);
+
             const ReqPassKey = req.params.passKey;
 
             const response = await cardModel.find({easyId: id});
+            const responseOne = response[0]
 
-            if(response.length === 0) {
+            if(!responseOne) {
                 const err =  new CustomError(`Card was not found: ${id}`, 404)
                 return next(err);
             } 
 
-            let passKeys = response[0].passKey;
+            let passKeys = responseOne.passKey;
 
             if(passKeys) {
                 if(passKeys !== ReqPassKey) {
@@ -113,12 +119,65 @@ const cardController = {
                 }
             } 
 
-            if(response.length>0) {
+            if(responseOne) {
+
+                if(responseOne.views) {
+                    responseOne.views++;
+                } else {
+                    responseOne.views = 1;
+                }
+                
+
+                await responseOne.save();
+                
                 res.status(200).json({
                     status: 'success',
                     data: {
-                        response
+                        responseOne
                     }
+                })
+            } 
+
+        } catch (error) {
+            const err =  new CustomError(error.message, 400)
+            next(err);
+        }
+    },
+
+    updateShareCount: async(req, res, next ) => {
+        try {
+            const id = req.params.id;
+
+            console.log(id);
+
+            const response = await cardModel.find({easyId: id});
+            console.log(response);
+
+            const responseOne = response[0]
+
+            if(!responseOne) {
+                const err =  new CustomError(`Card was not found: ${id}`, 404)
+                return next(err);
+            } 
+
+            if(responseOne) {
+
+                if(responseOne.shareCount) {
+                    console.log(responseOne.shareCount)
+                    responseOne.shareCount++;
+                    console.log(responseOne.shareCount)
+
+                } else {
+                    console.log(responseOne.shareCount)
+                    responseOne.shareCount = 1;
+                    console.log(responseOne.shareCount)
+
+                }
+                
+                await responseOne.save();
+
+                res.status(200).json({
+                    status: 'success',
                 })
             } 
 
