@@ -61,6 +61,12 @@ const cardSchema = new Schema({
     },
     youtubeURL: {
         type: String,
+    },
+    views: {
+        type:Number,
+    },
+    shareCount: {
+        type:Number,
     }
 }, {timestamps:true})
 

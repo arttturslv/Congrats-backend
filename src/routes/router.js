@@ -9,5 +9,6 @@ router.get('/stats', cardController.getCardsCount);
 
 router.get('/:id/:passKey?', cardController.getCard);
 
+router.post('/update/:id', cardController.updateShareCount);
 
 module.exports = router;
